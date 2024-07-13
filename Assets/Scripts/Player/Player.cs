@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -16,39 +15,51 @@ public class Player : MonoBehaviour
     [SerializeField] Animator animator;
     bool hitting = false;
     [SerializeField] float DetectDist;
+    public static int health = 100;
+    private PlayerEvents playerEvents;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        playerEvents = GetComponent<PlayerEvents>();
     }
 
-    void Start()
+    private void Start()
     {
+        if (playerEvents != null)
+        {
+            playerEvents.OnDamageTaken += PlayerEvents_OnDamageTaken;
+        }
+    }
 
+
+
+    private void PlayerEvents_OnDamageTaken(object sender, PlayerEvents.OnDamageTakenEventArgs e)
+    {
+        if(health<=10)
+        {
+            health = 100;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+        health -= e.Damage;
+        Debug.Log($"Player took {e.Damage} damage, current health = {health}!");
+        // Add logic for handling player damage here, e.g., reducing health
     }
 
     void Update()
     {
-        rb.velocity = new Vector2(horizontal * Speed, rb.velocity.y);
-        if (!isFacingRight && horizontal > 0f)
-        {
-            Flip();
-        }
-        else if (isFacingRight && horizontal < 0f)
-        {
-            Flip();
-        }
-
+        HandleMovement();
+        FlipIfNeeded();
         if (hitting)
         {
-            isEnemy();
+            CheckForEnemies();
         }
     }
 
     public void Jump(InputAction.CallbackContext context)
     {
-        if (context.performed && isGrounded())
+        if (context.performed && IsGrounded())
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
         }
@@ -63,10 +74,8 @@ public class Player : MonoBehaviour
         if (context.performed)
         {
             animator.SetBool("Hit", true);
-
             hitting = true;
         }
-        
 
         if (context.canceled)
         {
@@ -75,9 +84,21 @@ public class Player : MonoBehaviour
         }
     }
 
-    bool isGrounded()
+    bool IsGrounded()
     {
         return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+    }
+
+    void FlipIfNeeded()
+    {
+        if (!isFacingRight && horizontal > 0f)
+        {
+            Flip();
+        }
+        else if (isFacingRight && horizontal < 0f)
+        {
+            Flip();
+        }
     }
 
     void Flip()
@@ -88,14 +109,13 @@ public class Player : MonoBehaviour
         transform.localScale = localScale;
     }
 
-    void isEnemy()
+    void CheckForEnemies()
     {
         Vector2 direction = isFacingRight ? Vector2.right : Vector2.left;
         RaycastHit2D hit = Physics2D.Raycast(front.position, direction, DetectDist, LayerMask.GetMask("OPPS"));
 
-        if (hit.collider != null )
+        if (hit.collider != null && hit.collider.CompareTag("Enemy"))
         {
-            if (hit.collider.CompareTag("Enemy"))
             Debug.Log("Detected object with tag: Enemy");
         }
         else
@@ -115,5 +135,10 @@ public class Player : MonoBehaviour
         {
             animator.SetBool("Run", false);
         }
+    }
+
+    private void HandleMovement()
+    {
+        rb.velocity = new Vector2(horizontal * Speed, rb.velocity.y);
     }
 }

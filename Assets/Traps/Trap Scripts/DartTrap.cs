@@ -13,7 +13,6 @@ public class DartTrap : MonoBehaviour
     {
         cooldown_timer = 0;
         GameObject newDart = Instantiate(dart, firePoint.position, firePoint.rotation);
-        Debug.Log("New arrow");
         newDart.GetComponent<Dart>().ActivateProjectile();
     }
 
