@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerEvents : MonoBehaviour
-{ 
+{
     [SerializeField] Rigidbody2D rb;
     public event EventHandler<OnDamageTakenEventArgs> OnDamageTaken;
     public class OnDamageTakenEventArgs : EventArgs
@@ -15,6 +15,7 @@ public class PlayerEvents : MonoBehaviour
     {
        
     }
+   
     private void OnCollisionEnter2D(UnityEngine.Collision2D collision)
     {
 

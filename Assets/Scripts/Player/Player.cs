@@ -33,7 +33,10 @@ public class Player : MonoBehaviour
         }
     }
 
-
+    private void PlayerEvents_OnFallDamage(object sender, System.EventArgs e)
+    {
+        throw new System.NotImplementedException();
+    }
 
     private void PlayerEvents_OnDamageTaken(object sender, PlayerEvents.OnDamageTakenEventArgs e)
     {
