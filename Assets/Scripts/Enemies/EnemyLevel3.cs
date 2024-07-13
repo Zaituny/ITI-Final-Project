@@ -17,6 +17,7 @@ public class EnemyLevel3 : Enemy, IEnemy
     Player player;
     float attackTimer;
     public Projectile projectile;
+    Animator animator;
     void Awake()
     {
         this.state = State.Patrol;
@@ -32,6 +33,7 @@ public class EnemyLevel3 : Enemy, IEnemy
         }
         layerMask = 1 << MaskNumber;
         attackTimer = 0;
+        animator = GetComponent<Animator>();
     }
 
     void FixedUpdate()
@@ -57,6 +59,8 @@ public class EnemyLevel3 : Enemy, IEnemy
 
     public void Patrol()
     {
+        animator.SetBool("IsIdle", true);
+        animator.SetBool("IsShooting", false);
         if (transform.position.x <= this.rightPatrolLimit.position.x && !towardsRight)
         {
             direction = -direction;
@@ -83,7 +87,9 @@ public class EnemyLevel3 : Enemy, IEnemy
         {
             if (attackTimer == 0f)
             {
+                animator.SetBool("IsShooting", true);
                 Attack();
+                
             }
         }
         else if (Vector2.Distance(transform.position, this.rightPatrolLimit.position) > rightMaxFollowDistance &&
@@ -129,11 +135,9 @@ public class EnemyLevel3 : Enemy, IEnemy
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Triggered");
         if (IsInFOV(collision.transform.position))
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, collision.transform.position - transform.position, 15f, layerMask);
-            Debug.Log(hit.transform);
             if (hit.transform)
             {
                 if (hit.transform.gameObject.TryGetComponent<Player>(out player))

@@ -20,6 +20,7 @@ public class Projectile : MonoBehaviour
     {
         if (!inFlight) {
             transform.position = parent.transform.position;
+            gameObject.SetActive(false);
         }
         if (Vector2.Distance(transform.position, player.transform.position) <= 1f) {
             inFlight = false;
@@ -27,6 +28,7 @@ public class Projectile : MonoBehaviour
     }
     public void Shoot() {
         inFlight = true;
+        gameObject.SetActive(true);
         Vector3 direction = player.transform.position - transform.position;
         rb.velocity = new Vector2(direction.x, direction.y).normalized * force;
         float rot = Mathf.Atan2(-direction.y, -direction.x) * Mathf.Rad2Deg;
