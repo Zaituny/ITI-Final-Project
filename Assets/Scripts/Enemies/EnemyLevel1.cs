@@ -13,7 +13,8 @@ public class EnemyLevel1 :Enemy, IEnemy
     {
         public int damage;
     }
-    [SerializeField] int MaskNumber;
+    public int MaskNumber;
+    [SerializeField] private bool towardsRight;
     int layerMask;
     Vector2 direction;
     Player player;
@@ -21,8 +22,14 @@ public class EnemyLevel1 :Enemy, IEnemy
     void Awake() {
         this.state = State.Patrol;
         this.rb = GetComponent<Rigidbody2D>();
-        direction = new Vector2(1, 0);
-        this.towardsRight = true;
+        if (towardsRight)
+        {
+            direction = new Vector2(1, 0);
+
+        }
+        else {
+            direction = new Vector2(-1, 0);
+        }
         layerMask = 1 << MaskNumber;
         attackTimer = 0;
     }

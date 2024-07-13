@@ -12,7 +12,6 @@ public class Enemy : MonoBehaviour
 
 
     public Rigidbody2D rb;
-    public bool towardsRight;
     public enum State
     {
         Patrol,
