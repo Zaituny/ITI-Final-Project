@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
     [SerializeField] float DetectDist;
     public static int health = 100;
     private PlayerEvents playerEvents;
-
+    public HealthBar healthBar;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -31,60 +31,66 @@ public class Player : MonoBehaviour
         {
             playerEvents.OnDamageTaken += PlayerEvents_OnDamageTaken;
         }
+        healthBar.SetMaxHealth(health);
     }
 
-    private void PlayerEvents_OnFallDamage(object sender, System.EventArgs e)
-    {
-        throw new System.NotImplementedException();
-    }
+  
 
     private void PlayerEvents_OnDamageTaken(object sender, PlayerEvents.OnDamageTakenEventArgs e)
     {
-        if(health<=10)
+        if(health<10)
         {
+            animator.SetTrigger("Death");
             health = 100;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
         health -= e.Damage;
+        animator.SetTrigger("Hurt");
         Debug.Log($"Player took {e.Damage} damage, current health = {health}!");
         // Add logic for handling player damage here, e.g., reducing health
     }
-
+    
     void Update()
     {
+        animator.SetBool("Grounded", IsGrounded());
+        animator.SetFloat("AirSpeed",rb.velocity.y);
         HandleMovement();
         FlipIfNeeded();
         if (hitting)
         {
             CheckForEnemies();
         }
+        healthBar.SetHealth(health);
+        
     }
 
     public void Jump(InputAction.CallbackContext context)
     {
-        if (context.performed && IsGrounded())
+        
+        if (context.performed && IsGrounded() && rb.velocity.y == 0)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
+            animator.SetTrigger("Jump");
+
         }
         if (context.canceled && rb.velocity.y > 0f)
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+            
         }
-    }
+        
 
+    }
+    
     public void Hit(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            animator.SetBool("Hit", true);
-            hitting = true;
+            animator.SetTrigger("Attack");
+            
         }
 
-        if (context.canceled)
-        {
-            animator.SetBool("Hit", false);
-            hitting = false;
-        }
+        
     }
 
     bool IsGrounded()
@@ -132,11 +138,11 @@ public class Player : MonoBehaviour
         horizontal = context.ReadValue<Vector2>().x;
         if (context.performed)
         {
-            animator.SetBool("Run", true);
+            animator.SetInteger("AnimState", 2);
         }
         else if (context.canceled)
         {
-            animator.SetBool("Run", false);
+            animator.SetInteger("AnimState", 0);
         }
     }
 

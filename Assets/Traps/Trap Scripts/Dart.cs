@@ -12,7 +12,7 @@ public class Dart : MonoBehaviour
     {
         lifetime = 0;
         gameObject.SetActive(true);
-        Debug.Log("Arrow fired.");
+        
     }
 
     void Update()
