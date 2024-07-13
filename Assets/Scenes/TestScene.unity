@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 1480187}
   - component: {fileID: 1480190}
   - component: {fileID: 1480189}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: DummyPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -362,7 +362,7 @@ MonoBehaviour:
   rb: {fileID: 153504748}
   towardsRight: 0
   state: 0
-  MaskNumber: 6
+  MaskNumber: 7
 --- !u!58 &153504747
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -703,7 +703,7 @@ GameObject:
   m_Component:
   - component: {fileID: 703901614}
   - component: {fileID: 703901613}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: player-idle-1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
