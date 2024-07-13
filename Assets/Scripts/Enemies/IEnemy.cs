@@ -4,6 +4,7 @@ using UnityEngine;
 
 public interface IEnemy
 {
+    
     public void Patrol();
 
     public void Attack();

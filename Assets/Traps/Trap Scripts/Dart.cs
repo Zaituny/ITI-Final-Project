@@ -6,14 +6,12 @@ public class Dart : MonoBehaviour
 {
     [SerializeField] float speed = 5f;
     [SerializeField] float resetTime = 5f;
-    [SerializeField] Transform firePoint;
     float lifetime = 0f;
 
     public void ActivateProjectile()
     {
         lifetime = 0;
         gameObject.SetActive(true);
-        transform.localRotation = firePoint.rotation;
         Debug.Log("Arrow fired.");
     }
 
@@ -27,9 +25,12 @@ public class Dart : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Handle collision logic here
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Destroy(gameObject); 
+        }
     }
+    
 }
