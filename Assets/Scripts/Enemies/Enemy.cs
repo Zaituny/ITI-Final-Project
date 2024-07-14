@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,11 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public event EventHandler<OnDamageDealtEventArgs> OnDamageDealt;
+    public class OnDamageDealtEventArgs : EventArgs
+    {
+        public int damage;
+    }
     [SerializeField] public Transform rightPatrolLimit;
     [SerializeField] public Transform leftPatrolLimit;
     [SerializeField] public int rightMaxFollowDistance;

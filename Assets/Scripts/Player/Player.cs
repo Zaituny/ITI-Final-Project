@@ -20,9 +20,7 @@ public class Player : MonoBehaviour
     private PlayerEvents playerEvents;
     public HealthBar healthBar;
     [SerializeField] private Vector2 groundCheckSize = new Vector2(0.5f, 0.1f);
-    [SerializeField] private EnemyLevel1 el1;
-    [SerializeField] private EnemyLevel2 el2;
-    [SerializeField] private EnemyLevel3 el3;
+    [SerializeField] private Enemy enemy;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -36,37 +34,13 @@ public class Player : MonoBehaviour
         {
             playerEvents.OnDamageTaken += PlayerEvents_OnDamageTaken;
         }
-        el1.OnDamageDealt += E1_DamageDealt;
-        el2.OnDamageDealt += E2_DamageDealt;
-        el3.OnDamageDealt += E3_DamageDealt;
+        enemy.OnDamageDealt += E_DamageDealt;
+        enemy.OnDamageDealt += E_DamageDealt;
+        enemy.OnDamageDealt += E_DamageDealt;
         healthBar.SetMaxHealth(health);
     }
 
-    private void E1_DamageDealt(object sender, EnemyLevel1.OnDamageDealtEventArgs e) {
-        if (health < 10)
-        {
-            animator.SetTrigger("Death");
-            health = 100;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
-        health -= e.damage;
-        animator.SetTrigger("Hurt");
-    }
-
-    private void E2_DamageDealt(object sender, EnemyLevel2.OnDamageDealtEventArgs e)
-    {
-        if (health < 10)
-        {
-            animator.SetTrigger("Death");
-            health = 100;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
-        health -= e.damage;
-        animator.SetTrigger("Hurt");
-    }
-
-    private void E3_DamageDealt(object sender, EnemyLevel3.OnDamageDealtEventArgs e)
-    {
+    private void E_DamageDealt(object sender, Enemy.OnDamageDealtEventArgs e) {
         if (health < 10)
         {
             animator.SetTrigger("Death");
