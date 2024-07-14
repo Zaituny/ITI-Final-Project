@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - Trap
+  - PressurePlate
   layers:
   - Default
   - TransparentFX
@@ -15,7 +16,7 @@ TagManager:
   - UI
   - OPPS
   - Player
-  - 
+  - Disabled
   - 
   - 
   - 
