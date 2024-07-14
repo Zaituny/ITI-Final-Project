@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PressurePlate : MonoBehaviour
+public class SpikeBall : MonoBehaviour
 {
-    [SerializeField] GameObject gObject;
+    [SerializeField] Rigidbody2D rb;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,8 +16,11 @@ public class PressurePlate : MonoBehaviour
     {
         
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        gObject.SetActive(false);
+        if(collision.collider.CompareTag("Player"))
+        {
+            GetComponent<Collider2D>().enabled = false;
+        }
     }
 }
