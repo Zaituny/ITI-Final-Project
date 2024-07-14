@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     float horizontal;
     [SerializeField] float Speed;
     [SerializeField] float jumpingPower;
+    [SerializeField] float groundDist=0.2f;
     bool isFacingRight = true;
     [SerializeField] Animator animator;
     bool hitting = false;
@@ -18,6 +19,7 @@ public class Player : MonoBehaviour
     public static int health = 100;
     private PlayerEvents playerEvents;
     public HealthBar healthBar;
+    [SerializeField] private Vector2 groundCheckSize = new Vector2(0.5f, 0.1f);
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -95,7 +97,7 @@ public class Player : MonoBehaviour
 
     bool IsGrounded()
     {
-        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+        return Physics2D.OverlapBox(groundCheck.position, groundCheckSize, groundDist , groundLayer);
     }
 
     void FlipIfNeeded()
