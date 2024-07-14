@@ -6288,8 +6288,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
-<<<<<<< Updated upstream
-=======
 --- !u!1 &599501708
 GameObject:
   m_ObjectHideFlags: 0
@@ -6684,7 +6682,6 @@ Transform:
   - {fileID: 2047322394}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
->>>>>>> Stashed changes
 --- !u!1 &650935389
 GameObject:
   m_ObjectHideFlags: 0
