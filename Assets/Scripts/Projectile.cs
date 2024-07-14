@@ -27,11 +27,14 @@ public class Projectile : MonoBehaviour
         }
     }
     public void Shoot() {
+        if (!inFlight) { 
         inFlight = true;
         gameObject.SetActive(true);
         Vector3 direction = player.transform.position - transform.position;
+        direction.y += .2f;
         rb.velocity = new Vector2(direction.x, direction.y).normalized * force;
         float rot = Mathf.Atan2(-direction.y, -direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, rot);
+        }
     }
 }

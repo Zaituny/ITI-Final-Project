@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Enemy : MonoBehaviour
 {
     [SerializeField] public Transform rightPatrolLimit;
@@ -9,7 +10,6 @@ public class Enemy : MonoBehaviour
     [SerializeField] public int rightMaxFollowDistance;
     [SerializeField] public int leftMaxFollowDistance;
     [SerializeField] public int FOVangle;
-
 
     public Rigidbody2D rb;
     public enum State

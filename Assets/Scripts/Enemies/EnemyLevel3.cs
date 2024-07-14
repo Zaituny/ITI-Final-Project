@@ -38,6 +38,8 @@ public class EnemyLevel3 : Enemy, IEnemy
 
     void FixedUpdate()
     {
+        //Debug.Log(state);
+        //Debug.Log(direction);
         attackTimer += Time.deltaTime;
         if (attackTimer > 2)
         {
@@ -71,18 +73,24 @@ public class EnemyLevel3 : Enemy, IEnemy
             direction = -direction;
             Flip();
         }
-        rb.AddForce(direction.normalized * 5);
+        AddForce(direction.normalized * 5);
 
     }
     public void Attack()
     {
         rb.velocity = Vector3.zero;
         projectile.Shoot();
-        OnDamageDealt?.Invoke(this, new OnDamageDealtEventArgs { damage = 30 });
+        float dist = Vector2.Distance(new Vector2(transform.position.x, transform.position.y), new Vector2(player.transform.position.x, player.transform.position.y));
+        if (Vector2.Distance(new Vector2(transform.position.x, transform.position.y), new Vector2(player.transform.position.x, player.transform.position.y)) <= 1.5f)
+        { OnDamageDealt?.Invoke(this, new OnDamageDealtEventArgs { damage = 30 }); }
     }
 
     public void FollowPlayer()
     {
+        if (!IsInFOV(player.transform.position))
+        {
+            state = State.ReturningToPatrol;
+        }
         if (Vector2.Distance(transform.position, player.transform.position) < 12f)
         {
             if (attackTimer == 0f)
@@ -103,9 +111,23 @@ public class EnemyLevel3 : Enemy, IEnemy
             this.state = State.ReturningToPatrol;
         }
         direction = (player.transform.position - transform.position).normalized;
-        rb.AddForce(direction * 6f);
+        AddForce(direction * 6f);
     }
-
+    void AddForce(Vector2 force) 
+    {
+        if (rb.velocity.magnitude <= .1f)
+        { rb.AddForce(force);
+            return;
+        }
+       
+            rb.AddForce(force);
+       
+        if (rb.velocity.magnitude >= 5)
+        { 
+                var dir = rb.velocity.normalized;
+            rb.velocity = dir * 5;
+        }
+    }
     public void ReturnToPatrol()
     {
         if (transform.position.x < rightPatrolLimit.position.x)
@@ -123,7 +145,7 @@ public class EnemyLevel3 : Enemy, IEnemy
             state = State.Patrol;
             return;
         }
-        rb.AddForce(direction * 5);
+        AddForce(direction * 5);
     }
     public void Flip()
     {
@@ -137,7 +159,9 @@ public class EnemyLevel3 : Enemy, IEnemy
     {
         if (IsInFOV(collision.transform.position))
         {
+            
             RaycastHit2D hit = Physics2D.Raycast(transform.position, collision.transform.position - transform.position, 15f, layerMask);
+            Debug.Log(hit.transform);
             if (hit.transform)
             {
                 if (hit.transform.gameObject.TryGetComponent<Player>(out player))
@@ -148,7 +172,7 @@ public class EnemyLevel3 : Enemy, IEnemy
 
         }
     }
-
+    
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (state == State.Follow)
@@ -158,14 +182,20 @@ public class EnemyLevel3 : Enemy, IEnemy
         }
     }
 
-    private bool IsInFOV(Vector3 pos)
+    private bool IsInFOV(Vector2 pos)
     {
-        Vector2 to = pos - transform.position;
-        float angle = Vector2.SignedAngle(direction, to);
+        Vector2 to = pos - new Vector2(transform.position.x, transform.position.y);
+        
+        Vector2 test = -transform.right *  (transform.localScale.x / Mathf.Abs(transform.localScale.x));
+        //Debug.Log(test);
+        float angle = Vector2.SignedAngle(test, to);
+        
         if (angle < this.FOVangle / 2 && angle > -this.FOVangle / 2)
         {
+      
             return true;
         }
+        //Debug.Log(angle);
         return false;
     }
 }

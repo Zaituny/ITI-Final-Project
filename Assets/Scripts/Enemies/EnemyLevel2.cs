@@ -154,14 +154,20 @@ public class EnemyLevel2 : Enemy, IEnemy
         }
     }
 
-    private bool IsInFOV(Vector3 pos)
+    private bool IsInFOV(Vector2 pos)
     {
-        Vector2 to = pos - transform.position;
-        float angle = Vector2.SignedAngle(direction, to);
+        Vector2 to = pos - new Vector2(transform.position.x, transform.position.y);
+
+        Vector2 test = -transform.right * (transform.localScale.x / Mathf.Abs(transform.localScale.x));
+        //Debug.Log(test);
+        float angle = Vector2.SignedAngle(test, to);
+
         if (angle < this.FOVangle / 2 && angle > -this.FOVangle / 2)
         {
+            Debug.Log("in view");
             return true;
         }
+        //Debug.Log(angle);
         return false;
     }
 
