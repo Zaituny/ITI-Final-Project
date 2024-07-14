@@ -5,10 +5,13 @@ using UnityEngine;
 public class Key : MonoBehaviour
 { 
     Rigidbody2D myKey;
-    float KeyCount = 0;
+    public int Keys = 0;
+    
+    
     private void Awake()
     {
         myKey = GetComponent<Rigidbody2D>();
+        
     }
     void Start()
     {
@@ -24,11 +27,12 @@ public class Key : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            KeyCount++;
+            
             myKey.GetComponent<SpriteRenderer>().enabled = false;
             myKey.GetComponent<BoxCollider2D>().enabled = false;
-
+            Keys++;
         }
 
     }
+   
 }
