@@ -20,6 +20,9 @@ public class Player : MonoBehaviour
     private PlayerEvents playerEvents;
     public HealthBar healthBar;
     [SerializeField] private Vector2 groundCheckSize = new Vector2(0.5f, 0.1f);
+    [SerializeField] private EnemyLevel1 el1;
+    [SerializeField] private EnemyLevel2 el2;
+    [SerializeField] private EnemyLevel3 el3;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -33,10 +36,46 @@ public class Player : MonoBehaviour
         {
             playerEvents.OnDamageTaken += PlayerEvents_OnDamageTaken;
         }
+        el1.OnDamageDealt += E1_DamageDealt;
+        el2.OnDamageDealt += E2_DamageDealt;
+        el3.OnDamageDealt += E3_DamageDealt;
         healthBar.SetMaxHealth(health);
     }
 
-  
+    private void E1_DamageDealt(object sender, EnemyLevel1.OnDamageDealtEventArgs e) {
+        if (health < 10)
+        {
+            animator.SetTrigger("Death");
+            health = 100;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+        health -= e.damage;
+        animator.SetTrigger("Hurt");
+    }
+
+    private void E2_DamageDealt(object sender, EnemyLevel2.OnDamageDealtEventArgs e)
+    {
+        if (health < 10)
+        {
+            animator.SetTrigger("Death");
+            health = 100;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+        health -= e.damage;
+        animator.SetTrigger("Hurt");
+    }
+
+    private void E3_DamageDealt(object sender, EnemyLevel3.OnDamageDealtEventArgs e)
+    {
+        if (health < 10)
+        {
+            animator.SetTrigger("Death");
+            health = 100;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+        health -= e.damage;
+        animator.SetTrigger("Hurt");
+    }
 
     private void PlayerEvents_OnDamageTaken(object sender, PlayerEvents.OnDamageTakenEventArgs e)
     {
@@ -48,8 +87,6 @@ public class Player : MonoBehaviour
         }
         health -= e.Damage;
         animator.SetTrigger("Hurt");
-        Debug.Log($"Player took {e.Damage} damage, current health = {health}!");
-        // Add logic for handling player damage here, e.g., reducing health
     }
     
     void Update()
@@ -89,7 +126,16 @@ public class Player : MonoBehaviour
         if (context.performed)
         {
             animator.SetTrigger("Attack");
-            
+            Vector2 direction = isFacingRight ? Vector2.right : Vector2.left;
+            RaycastHit2D hit = Physics2D.Raycast(front.position, direction, DetectDist, LayerMask.GetMask("OPPS"));
+            if (hit.transform) {
+                if (hit.transform.gameObject.TryGetComponent<Enemy>(out Enemy enemy)) {
+                    if (enemy.gameObject.TryGetComponent<Health>(out Health health)) {
+                        health.TakeDamage(50);
+                        Debug.Log(health.health);
+                    }
+                }
+            }
         }
 
         
