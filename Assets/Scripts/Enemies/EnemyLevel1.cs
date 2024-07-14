@@ -36,6 +36,7 @@ public class EnemyLevel1 :Enemy, IEnemy
     
     void FixedUpdate()
     {
+        Debug.Log(state);
         attackTimer += Time.deltaTime;
         if (attackTimer > 2)
         {
@@ -73,7 +74,8 @@ public class EnemyLevel1 :Enemy, IEnemy
     }
 
     public void FollowPlayer() {
-        if (Vector2.Distance(transform.position, player.transform.position) < 2f) {
+
+        if (Vector2.Distance(new Vector2(transform.position.x, transform.position.y), new Vector2(player.transform.position.x, player.transform.position.y)) <= 1.5f) {
             if (attackTimer == 0f) {
                 Attack();
             }
