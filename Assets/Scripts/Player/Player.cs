@@ -53,17 +53,20 @@ public class Player : MonoBehaviour
 
     private void PlayerEvents_OnDamageTaken(object sender, PlayerEvents.OnDamageTakenEventArgs e)
     {
-        if(health<10)
+        if(health<=10)
         {
             animator.SetTrigger("Death");
             health = 100;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
-        health -= e.Damage;
-        animator.SetTrigger("Hurt");
-        rb.AddForce(new Vector2(-20, 5),ForceMode2D.Impulse);
-        Debug.Log($"Player took {e.Damage} damage, current health = {health}!");
-        // Add logic for handling player damage here, e.g., reducing health
+        else
+        { 
+            health -= e.Damage;
+            animator.SetTrigger("Hurt");
+            rb.AddForce(new Vector2(-5, 5),ForceMode2D.Impulse);
+        }
+        
+
     }
     
     void Update()

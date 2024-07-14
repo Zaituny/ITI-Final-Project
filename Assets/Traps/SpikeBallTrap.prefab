@@ -361,7 +361,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: -0.00779586, y: 0.103155576}
-  m_ConnectedAnchor: {x: -0.01533501, y: -0.07021491}
+  m_ConnectedAnchor: {x: -0.01533532, y: -0.07021526}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -535,7 +535,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: -0.00779586, y: 0.103155576}
-  m_ConnectedAnchor: {x: 0.0017046928, y: -0.00034445524}
+  m_ConnectedAnchor: {x: 0.0017046928, y: -0.00034427643}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -709,7 +709,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: -0.00779586, y: 0.103155576}
-  m_ConnectedAnchor: {x: -0.010052228, y: -0.0795121}
+  m_ConnectedAnchor: {x: -0.010052219, y: -0.079512514}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -794,7 +794,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: -2.7167482, y: -0.42189413}
+  m_ConnectedAnchor: {x: -5.9360003, y: -5.4430003}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -968,7 +968,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: -0.00779586, y: 0.103155576}
-  m_ConnectedAnchor: {x: -0.0070199566, y: -0.07991002}
+  m_ConnectedAnchor: {x: -0.0070197997, y: -0.07991018}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -1142,7 +1142,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: -0.00779586, y: 0.103155576}
-  m_ConnectedAnchor: {x: -0.01843353, y: -0.07507176}
+  m_ConnectedAnchor: {x: -0.018433793, y: -0.07507197}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -1316,7 +1316,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: -0.010827878, y: 0.101754345}
-  m_ConnectedAnchor: {x: 0.0026269648, y: -0.06265423}
+  m_ConnectedAnchor: {x: 0.002627149, y: -0.06265408}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -1385,6 +1385,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpikeBall
       objectReference: {fileID: 0}
+    - target: {fileID: 8782797142027848962, guid: ba9bfed3b09bf6c408c41268a3af47a5, type: 3}
+      propertyPath: m_TagString
+      value: Trap
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1398,6 +1402,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8782797142027848962, guid: ba9bfed3b09bf6c408c41268a3af47a5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 635397426995701223}
+    - targetCorrespondingSourceObject: {fileID: 8782797142027848962, guid: ba9bfed3b09bf6c408c41268a3af47a5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2251156038796118974}
   m_SourcePrefab: {fileID: 100100000, guid: ba9bfed3b09bf6c408c41268a3af47a5, type: 3}
 --- !u!4 &6177583903409436686 stripped
 Transform:
@@ -1452,7 +1459,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: -0.026726294, y: 0.46969193}
-  m_ConnectedAnchor: {x: -0.026034953, y: -0.07128324}
+  m_ConnectedAnchor: {x: -0.02603473, y: -0.07128311}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -1496,3 +1503,16 @@ CircleCollider2D:
   m_Offset: {x: -0.010329182, y: 0}
   serializedVersion: 2
   m_Radius: 0.4115453
+--- !u!114 &2251156038796118974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8410838376840135983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b82db1ae6de2c2848aec806b209d05fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 7288475381148552772}
