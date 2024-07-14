@@ -7,8 +7,9 @@ public class level2end : MonoBehaviour
 {
     [SerializeField] Sprite opened;
     [SerializeField] Sprite closed;
+    [SerializeField] Key myKey;
     SpriteRenderer door;
-    Key myKey;
+   
     
 
 
@@ -16,7 +17,7 @@ public class level2end : MonoBehaviour
     {
       
       door = GetComponent<SpriteRenderer>();
-      myKey = GetComponent<Key>();
+      
     }
     void Start()
     {
@@ -26,14 +27,14 @@ public class level2end : MonoBehaviour
     
     void Update()
     {
-      /*if(myKey.Keys == 3)
+      if(myKey.getkey() == 1)
         {
             door.sprite = opened;
-        }*/
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player") /*&& myKey.Keys == 3*/)
+        if (collision.gameObject.CompareTag("Player") && myKey.getkey() == 1)
         {
             SceneManager.LoadScene(4);
         }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Key : MonoBehaviour
 { 
     Rigidbody2D myKey;
-    public int Keys = 0;
+    int Keys;
     
     
     private void Awake()
@@ -15,13 +15,13 @@ public class Key : MonoBehaviour
     }
     void Start()
     {
-        
+        Keys = 0;
     }
 
    
     void Update()
     {
-        //Debug.Log(KeyCount);
+        Debug.Log(Keys);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -34,5 +34,8 @@ public class Key : MonoBehaviour
         }
 
     }
-   
+    public int getkey()
+    {
+        return Keys;
+    }
 }

@@ -36,4 +36,8 @@ public class transition : MonoBehaviour
     {
         SceneManager.LoadScene(4);
     }
+    public void settings()
+    {
+        SceneManager.LoadScene(5);
+    }
 }
