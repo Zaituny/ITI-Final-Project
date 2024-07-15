@@ -22,7 +22,12 @@ public class transition : MonoBehaviour
     }
     public void MainMenu()
     {
+        SceneManager.LoadScene(0);
+    }
+    public void levelselect()
+    {
         SceneManager.LoadScene(1);
+
     }
     public void level1()
     {
@@ -39,5 +44,10 @@ public class transition : MonoBehaviour
     public void settings()
     {
         SceneManager.LoadScene(5);
+    }
+    public void pause()  
+    {
+        SceneManager.LoadScene(7);
+
     }
 }

@@ -81,7 +81,7 @@ public class EnemyLevel3 : Enemy, IEnemy
         rb.velocity = Vector3.zero;
         projectile.Shoot();
         float dist = Vector2.Distance(new Vector2(transform.position.x, transform.position.y), new Vector2(player.transform.position.x, player.transform.position.y));
-        if (Vector2.Distance(new Vector2(transform.position.x, transform.position.y), new Vector2(player.transform.position.x, player.transform.position.y)) <= 1.5f)
+        if (Vector2.Distance(new Vector2(transform.position.x, transform.position.y), new Vector2(player.transform.position.x, player.transform.position.y)) <= 3f)
         { OnDamageDealt?.Invoke(this, new OnDamageDealtEventArgs { damage = 30 }); }
     }
 
